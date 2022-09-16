@@ -25,38 +25,20 @@ def create_data():
                 "offer_type": "FLAT",
                 "offer_val": 1000
             }
-            ,
-            "order_items": [
-                {
-                "name": "bread",
-                "quantity": 2,
-                "price": 2200
-                },
-                {
-                "name": "butter",
-                "quantity": 1,
-                "price": 5900
-                }
-            ],
-            "distance": 1250,
-            "offer": {
-                "offer_type": "DELIVERY",
-                "offer_val": 1000
-            }
         }
     ]
     return data
-
-@app.route('/')
-def index():
-    return "Welcome"
-
     
+# storing the input data as json on the url: http://127.0.0.1:5000/api/v1/resources/data/all
+# you can the json data by running the above url in any browser of choice
 
 @app.route('/api/v1/resources/data/all', methods=['GET'])
 def api_all():
-    return jsonify(create_data)
+    return jsonify(create_data())
 
+
+# method to calculate cost purchased items
+# it returns cost as a dictionary
 
 def calculate_cost(dist):
 
@@ -96,6 +78,9 @@ def calculate_cost(dist):
         total_cost={'order_total':total_cost}
         return total_cost
 
+
+# calculated final cost can be seen on the url: http://127.0.0.1:5000/api/v1/resources/data?distance=1200
+# this method also extracts the argument value which is later used to refer to the correct data in the database
 
 @app.route('/api/v1/resources/data', methods=['GET'])
 def api_id():
